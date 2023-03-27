@@ -19,7 +19,7 @@ export default function App() {
   }
 
   function handleChangeSign() {
-    return currentValue * -1
+    return currentValue ? setCurrentValue(Number(currentValue) * -1) : setPreviousValue(Number(previousValue * -1))
   }
 
   function handleClear() {
@@ -45,7 +45,7 @@ export default function App() {
         result = Number(previousValue) / Number(currentValue);
         break;
       case '%':
-        result = Number(previousValue) % Number(currentValue);
+        result = Number(previousValue) / 100 * Number(currentValue);
         break;
       default:
         result = Number(currentValue);
@@ -61,7 +61,7 @@ export default function App() {
       <div className="grid grid-cols-4 text-center cursor-pointer">
         <div className="bg-[#7b7a89] text-white w-full text-2xl p-4 font-bold flex col-span-4 justify-end">{currentValue || previousValue || "0"}</div>
         <Button handleClick={handleClear} style="text-lg">AC</Button>
-        <Button handleClick={() => setCurrentValue(handleChangeSign)}>+/-</Button>
+        <Button handleClick={handleChangeSign}>+/-</Button>
         <Button handleClick={() => handleOperator('%')}>%</Button>
         <Button handleClick={() => handleOperator('/')} style="bg-[#f48637]">÷</Button>
         <Button handleClick={() => handleClick('7')}>7</Button>
