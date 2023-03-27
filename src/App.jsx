@@ -2,17 +2,15 @@ import { useState } from "react"
 import Button from "./Button";
 
 export default function App() {
-  const [currentValue, setCurrentValue] = useState(0)
-  const [previousValue, setPreviousValue] = useState(0)
+  const [currentValue, setCurrentValue] = useState("")
+  const [previousValue, setPreviousValue] = useState("")
   const [operator, setOperator] = useState(null)
-
 
   function handleClick(number) {
     if (operator === null) {
-      setCurrentValue(prevValue => prevValue + number);
+      setPreviousValue(preValue => preValue + number);
     } else {
-      setPreviousValue(currentValue);
-      setCurrentValue(number);
+      setCurrentValue(prevNumber => prevNumber + number);
     }
   }
 
@@ -22,6 +20,13 @@ export default function App() {
 
   function handleChangeSign() {
     return currentValue * -1
+  }
+
+  function handleClear() {
+    setCurrentValue("")
+    setPreviousValue("")
+    setOperator(null)
+
   }
 
   function handleEqual() {
@@ -48,31 +53,30 @@ export default function App() {
     }
     setCurrentValue(result);
     setOperator(null);
-    setPreviousValue(0);
+    setPreviousValue("");
   }
-
 
   return (
     <main className="h-screen mx-auto container flex flex-col items-center justify-center">
       <div className="grid grid-cols-4 text-center cursor-pointer">
-        <div className="bg-[#7b7a89] text-white w-full text-2xl p-4 font-bold flex col-span-4 justify-end">{currentValue}</div>
-        <Button handleClick={() => setCurrentValue(0)} style="text-lg">AC</Button>
+        <div className="bg-[#7b7a89] text-white w-full text-2xl p-4 font-bold flex col-span-4 justify-end">{currentValue || previousValue || "0"}</div>
+        <Button handleClick={handleClear} style="text-lg">AC</Button>
         <Button handleClick={() => setCurrentValue(handleChangeSign)}>+/-</Button>
         <Button handleClick={() => handleOperator('%')}>%</Button>
         <Button handleClick={() => handleOperator('/')} style="bg-[#f48637]">÷</Button>
-        <Button handleClick={() => handleClick(7)}>7</Button>
-        <Button handleClick={() => handleClick(8)}>8</Button>
-        <Button handleClick={() => handleClick(9)}>9</Button>
+        <Button handleClick={() => handleClick('7')}>7</Button>
+        <Button handleClick={() => handleClick('8')}>8</Button>
+        <Button handleClick={() => handleClick('9')}>9</Button>
         <Button handleClick={() => handleOperator('*')} style="bg-[#f48637] text-lg">x</Button>
-        <Button handleClick={() => handleClick(4)}>4</Button>
-        <Button handleClick={() => handleClick(5)}>5</Button>
-        <Button handleClick={() => handleClick(6)}>6</Button>
+        <Button handleClick={() => handleClick('4')}>4</Button>
+        <Button handleClick={() => handleClick('5')}>5</Button>
+        <Button handleClick={() => handleClick('6')}>6</Button>
         <Button handleClick={() => handleOperator('-')} style="bg-[#f48637] text-3xl">-</Button>
-        <Button handleClick={() => handleClick(1)}>1</Button>
-        <Button handleClick={() => handleClick(2)}>2</Button>
-        <Button handleClick={() => handleClick(3)}>3</Button>
+        <Button handleClick={() => handleClick('1')}>1</Button>
+        <Button handleClick={() => handleClick('2')}>2</Button>
+        <Button handleClick={() => handleClick('3')}>3</Button>
         <Button handleClick={() => handleOperator('+')} style="bg-[#f48637]">+</Button>
-        <Button handleClick={() => handleClick(0)} style="col-span-2" >0</Button>
+        <Button handleClick={() => handleClick('0')} style="col-span-2" >0</Button>
         <Button handleClick={() => handleClick('.')}>.</Button>
         <Button handleClick={handleEqual} style="bg-[#f48637]">=</Button>
       </div>
