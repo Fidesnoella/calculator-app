@@ -36,6 +36,7 @@ export default function App() {
     if (previousValue && currentValue) {
       handleEqual();
       setOperator(newOperator)
+      return currentValue
     }
   }
 
@@ -81,7 +82,7 @@ export default function App() {
   return (
     <main className="h-screen mx-auto container flex flex-col items-center justify-center">
       <div className="grid grid-cols-4 text-center cursor-pointer">
-        <div className="bg-[#7b7a89] text-white w-full text-2xl p-4 font-bold flex col-span-4 justify-end">{result || currentValue || previousValue || "0"}</div>
+        <div className="bg-[#7b7a89] text-white w-full text-2xl p-4 font-bold flex col-span-4 justify-end">{result && operator === null ? result : currentValue || previousValue || "0"}</div>
         <Button handleClick={handleClear} style="text-lg">AC</Button>
         <Button handleClick={handleChangeSign}>+/-</Button>
         <Button handleClick={() => handleOperator('%')}>%</Button>
